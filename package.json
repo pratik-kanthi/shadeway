@@ -1,0 +1,32 @@
+{
+  "name": "shadeway",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@mapbox/polyline": "^1.2.1",
+    "@radix-icons/vue": "^1.0.0",
+    "@vueuse/core": "^10.9.0",
+    "axios": "^1.6.8",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.0",
+    "maplibre-gl": "^4.1.2",
+    "pinia": "^2.1.7",
+    "radix-vue": "^1.6.2",
+    "tailwind-merge": "^2.2.2",
+    "tailwindcss-animate": "^1.0.7",
+    "v-calendar": "^3.1.2",
+    "vue": "^3.4.21"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^5.0.4",
+    "autoprefixer": "^10.4.19",
+    "tailwindcss": "^3.4.3",
+    "vite": "^5.2.0"
+  }
+}
