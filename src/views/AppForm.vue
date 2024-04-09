@@ -22,12 +22,12 @@ const timezoneOptions = ref([
 	{ label: "Asia/Kolkata (GMT+5:30)", value: "Asia/Kolkata" }
 ]);
 
-const origin = ref();
-const destination = ref();
-const time = ref();
-const exposureData = ref();
-const journeyData = ref();
-const timezone = ref();
+const origin = ref(null);
+const destination = ref(null);
+const time = ref(null);
+const exposureData = ref(null);
+const journeyData = ref(null);
+const timezone = ref(null);
 
 const handleOriginSelect = (val)=>{
 	origin.value = val;
@@ -106,11 +106,11 @@ const isBusy = computed(()=>{
 		</div>
 
 		<div class="flex gap-x-2 mt-4 w-full justify-between">
-			<Button @click="calculateExposure" :disabled="loading" class="flex gap-x-2">
+			<Button @click="calculateExposure" :disabled="isBusy" class="flex gap-x-2">
 				<SunIcon/>
 				<div>Calculate</div>
 			</Button>
-			<Button @click="resetForm" :disabled="loading" class="flex gap-x-2">
+			<Button @click="resetForm" :disabled="isBusy" class="flex gap-x-2">
 				<ResetIcon/>
 				<div>Reset</div>
 			</Button>
@@ -161,13 +161,6 @@ const isBusy = computed(()=>{
 					</CardContent>
 				</Card>
 			</div>
-
-
-
-
 		</div>
-
-
-
 	</div>
 </template>
