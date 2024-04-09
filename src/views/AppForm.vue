@@ -3,7 +3,7 @@ import AddressSearch from "@/views/components/AddressSearch.vue";
 import Input from '@/components/ui/input/Input.vue';
 import Button from "@/components/ui/button/Button.vue";
 import Combobox from "@/views/components/Combobox.vue";
-import {ref} from "vue";
+import {computed, ref} from "vue";
 import axios from "axios";
 import Card from "@/components/ui/card/Card.vue";
 import CardHeader from "@/components/ui/card/CardHeader.vue";
@@ -58,6 +58,7 @@ const calculateExposure = async (val)=>{
 	setMapData(result.data);
 }
 
+
 const resetForm = ()=>{
 	origin.value = null;
 	destination.value = null;
@@ -67,6 +68,10 @@ const resetForm = ()=>{
 	journeyData.value = null;
 	setMapData(null);
 }
+
+const isBusy = computed(()=>{
+	return loading.value || origin.value === null || destination.value === null || time.value === null || timezone.value === null;
+})
 </script>
 
 
