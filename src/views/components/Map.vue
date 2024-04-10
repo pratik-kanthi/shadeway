@@ -5,7 +5,7 @@ import { useAppStore } from "@/store/index.js";
 import { storeToRefs } from "pinia";
 import polyline from "@mapbox/polyline";
 const appStore = useAppStore();
-const { mapData } = storeToRefs(appStore);
+const { mapData, exposureColors, originPoint, destinationPoint } = storeToRefs(appStore);
 let map = null;
 
 onMounted(() => {
@@ -59,21 +59,7 @@ watch(
 					}
 				});
 
-				let color;
-				switch (segment.code) {
-					case 1:
-						color = '#00ff00';
-						break;
-					case 2:
-						color = '#3b82f6';
-						break;
-					case 3:
-						color = '#ff0000';
-						break;
-					default:
-						color = '#e7ff00';
-						break;
-				}
+				let color = exposureColors.value[segment.code];
 
 				map.addLayer({
 					id: layerId,

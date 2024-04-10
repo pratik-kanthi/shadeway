@@ -15,7 +15,7 @@ import {useAppStore} from "@/store/index.js";
 
 
 const appStore = useAppStore();
-const { mapData , setMapData } = appStore;
+const { mapData , setMapData, originPoint, destinationPoint } = appStore;
 
 const timezoneOptions = ref([
 	{ label: "Europe/London (GMT)", value: "Europe/London" },
@@ -24,10 +24,11 @@ const timezoneOptions = ref([
 
 const origin = ref(null);
 const destination = ref(null);
-const time = ref(null);
+const time = ref('');
 const exposureData = ref(null);
 const journeyData = ref(null);
 const timezone = ref(null);
+
 
 const handleOriginSelect = (val)=>{
 	origin.value = val;
@@ -55,7 +56,10 @@ const calculateExposure = async (val)=>{
 	loading.value = false;
 	exposureData.value = result.data.exposureData;
 	journeyData.value = result.data;
+
 	setMapData(result.data);
+	originPoint.value = origin.value;
+	destinationPoint.value = destination.value;
 }
 
 
@@ -79,8 +83,8 @@ const isBusy = computed(()=>{
 	<div class="flex gap-y-4 flex-col md:w-3/4 px-6 md:px-0">
 
 		<div>
-			<div class="text-4xl font-medium">Shadeway</div>
-			<div>Find the most optimal seat on your journey and avoid the sun</div>
+			<div class="text-4xl font-semibold">shadeway</div>
+			<div class="text-gray-500 text-base">Find the most optimal seat on your journey and avoid the sun</div>
 		</div>
 
 
@@ -97,7 +101,7 @@ const isBusy = computed(()=>{
 		<div class="flex flex-col md:flex-row gap-x-4">
 			<div class="flex flex-col gap-y-1">
 				<Label class="font-medium">Time</Label>
-				<Input v-model="time" type="datetime-local" class="h-12 font-medium" placeholder="Email"></Input>
+				<Input v-model="time" :defaultValue="time" type="datetime-local" class="h-12 font-medium" placeholder="Time"></Input>
 			</div>
 			<div class="flex flex-col gap-y-1 w-full">
 				<Label class="font-medium">Timezone</Label>
@@ -119,7 +123,7 @@ const isBusy = computed(()=>{
 		<div class="flex flex-col gap-y-2">
 
 			<div class="mt-4 py-4 bg-zinc-100 rounded-md px-6" v-if="journeyData">
-				<div class="flex gap-x-8">
+				<div class="flex gap-x-8 justify-between">
 					<div>
 						<div class="font-semibold">Duration</div>
 						<div class="text-2xl font-semibold">{{ journeyData.duration.text }}</div>
@@ -132,32 +136,34 @@ const isBusy = computed(()=>{
 				</div>
 			</div>
 
-			<div class="grid grid-cols-2 gap-2 mt-4" v-if="exposureData">
-				<Card v-if="exposureData['Left Side']">
+			<div class="grid grid-cols-3 gap-2 mt-4" v-if="exposureData">
+				<Card v-if="exposureData['2']">
 					<CardHeader>
 						<CardTitle>Left Side</CardTitle>
 						<CardDescription>Sun exposure on left side</CardDescription>
 					</CardHeader>
-					<CardContent class="text-2xl font-semibold" :class="exposureData['Left Side'] > exposureData['Right Side'] ? 'text-red-600' : 'text-green-600' ">
-						{{ exposureData['Left Side'].toFixed(2) }} %
+					<CardContent class="text-2xl font-semibold text-yellow-600">
+						{{ exposureData['2'].toFixed(2) }} %
 					</CardContent>
 				</Card>
-				<Card v-if="exposureData['Right Side']">
+
+				<Card v-if="exposureData['3']">
+					<CardHeader>
+						<CardTitle>No Sun</CardTitle>
+						<CardDescription>No sun exposure on either sides</CardDescription>
+					</CardHeader>
+					<CardContent class="text-2xl font-semibold text-[#3b82f6]">
+						{{ exposureData['3'].toFixed(2)}} %
+					</CardContent>
+				</Card>
+
+				<Card v-if="exposureData['1']">
 					<CardHeader>
 						<CardTitle>Right Side</CardTitle>
 						<CardDescription>Sun exposure on right side</CardDescription>
 					</CardHeader>
-					<CardContent class="text-2xl font-semibold" :class="exposureData['Left Side'] < exposureData['Right Side'] ? 'text-red-600' : 'text-green-600' ">
-						{{ exposureData['Right Side'].toFixed(2)}} %
-					</CardContent>
-				</Card>
-				<Card v-if="exposureData['No Sun']">
-					<CardHeader>
-						<CardTitle>No Sun</CardTitle>
-						<CardDescription>No sun exposure</CardDescription>
-					</CardHeader>
-					<CardContent class="text-2xl font-semibold" :class="exposureData['Left Side'] < exposureData['Right Side'] ? 'text-red-600' : 'text-green-600' ">
-						{{ exposureData['No Sun'].toFixed(2)}} %
+					<CardContent class="text-2xl font-semibold text-[#2f7a04]">
+						{{ exposureData['1'].toFixed(2)}} %
 					</CardContent>
 				</Card>
 			</div>
