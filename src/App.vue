@@ -12,7 +12,7 @@ import Map from "@/views/components/Map.vue";
 			</div>
 
 		</div>
-		<div class="px-6 md:px-0 mt-8 md:mt-12 h-64 md:h-full md:w-1/2">
+		<div class="px-6 md:px-0 mt-8 md:mt-0 h-64 md:h-full md:w-1/2">
 			<Map></Map>
 		</div>
 
