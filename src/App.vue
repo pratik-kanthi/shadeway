@@ -12,11 +12,11 @@ import Map from "@/views/components/Map.vue";
 			</div>
 
 		</div>
-		<div class="w-full h-48 md:h-full md:w-1/2">
+		<div class="px-6 md:px-0 mt-8 md:mt-12 h-64 md:h-full md:w-1/2">
 			<Map></Map>
 		</div>
 
-		<div class="block md:hidden flex items-center justify-center pt-4 py-2 md:py-0">
+		<div class="md:hidden flex items-center justify-center pt-4 py-2 md:py-0">
 			<div class="text-sm font-medium">Made by <a class="underline" href="https://twitter.com/pratikanthi" target="_blank">@pratikanthi</a></div>
 		</div>
 	</div>
