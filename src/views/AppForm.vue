@@ -20,7 +20,7 @@ const { mapData , setMapData, originPoint, destinationPoint } = appStore;
 
 const timezoneOptions = ref([
 	{ label: "Europe/London", value: "Europe/London" },
-	{ label: "Asia/Kolkata", value: "Asia/Kolkata" }
+	{ label: "Asia/Calcutta", value: "Asia/Calcutta" }
 ]);
 
 const origin = ref(null);
