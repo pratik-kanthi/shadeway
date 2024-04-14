@@ -83,7 +83,7 @@ const isBusy = computed(()=>{
 	<div class="flex gap-y-4 flex-col md:w-3/4 px-6 md:px-0">
 
 		<div>
-			<div class="text-4xl font-semibold">shadeway</div>
+			<img src="@/assets/logo.svg" class="w-32 md:w-64" alt="logo">
 			<div class="text-gray-500 text-base">Find the most optimal seat on your journey and avoid the sun</div>
 		</div>
 
