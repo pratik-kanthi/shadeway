@@ -56,7 +56,7 @@ const calculateExposure = async (val)=>{
 			from : `${origin.value.latitude},${origin.value.longitude}`,
 			to : `${destination.value.latitude},${destination.value.longitude}`,
 			time: time.value.replace("T"," "),
-			timezone: timezone.value.value.value
+			timezone: timezone.value.value.value === 'Asia/Calcutta' ? 'Asia/Kolkata' : timezone.value.value.value
 		}
 	});
 	loading.value = false;
