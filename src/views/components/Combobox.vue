@@ -7,7 +7,14 @@ import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandL
 import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover'
 
 const props = defineProps({
-	options: Array
+	options: Array,
+	value: String
+});
+
+onMounted(()=>{
+	if(props.value){
+		selected.value = props.value;
+	}
 })
 
 const open = ref(false);
@@ -18,6 +25,7 @@ const handleSelect = ()=>{
 	open.value = false
 	emits('selected', selected);
 }
+
 
 </script>
 
@@ -46,7 +54,7 @@ const handleSelect = ()=>{
 					<CommandGroup>
 						<CommandItem
 								v-for="item in options"
-								class="h-12"
+								class="h-12 font-medium py-2 px-2 flex items-center gap-x-4"
 								:key="item"
 								:value="item"
 								@select="handleSelect"

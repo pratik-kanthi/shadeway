@@ -6,6 +6,7 @@ import {Button} from '@/components/ui/button'
 import {Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList,} from '@/components/ui/command'
 import {Popover, PopoverContent, PopoverTrigger,} from '@/components/ui/popover'
 import {getPlaceDetails, searchPlaces} from "@/services/addressService.js";
+import { useDebounceFn } from '@vueuse/core'
 
 
 const addressSuggestions = ref([]);
@@ -24,6 +25,7 @@ const handleSelect = async (ev) => {
 	emits('selected', selected.value.location)
 };
 
+
 const handleChange = async (value)=>{
 	searchText.value = value;
 	const result = await searchPlaces(searchText.value);
@@ -34,6 +36,7 @@ const handleChange = async (value)=>{
 		}
 	})
 }
+const debouncedHandleChange = useDebounceFn(handleChange, 200);
 
 </script>
 
@@ -51,7 +54,7 @@ const handleChange = async (value)=>{
 		</PopoverTrigger>
 
 		<PopoverContent class="w-[var(--radix-popover-trigger-width)] p-0">
-			<Command v-model="searchText" @update:searchTerm="handleChange">
+			<Command v-model="searchText" @update:searchTerm="debouncedHandleChange">
 				<CommandInput  class="h-12" placeholder="Search address..."/>
 				<CommandEmpty class="py-4">
 					<div class="flex justify-start px-4">
@@ -61,13 +64,14 @@ const handleChange = async (value)=>{
 				<CommandList>
 					<CommandGroup>
 						<CommandItem
-								class="h-12"
+								class="h-14 font-medium py-2 px-2 flex items-center gap-x-4"
 								v-for="address in addressSuggestions"
 								:key="address.id"
 								:value="address"
 								@select="handleSelect"
 						>
-							{{ address.label }}
+							<div><img class="w-4 h-4" src="@/assets/google-map-icon.svg"></div>
+							<div>{{ address.label }}</div>
 							<CheckIcon :class="cn('ml-auto h-4 w-4', selected.id === address.id ? 'opacity-100' : 'opacity-0')"/>
 						</CommandItem>
 					</CommandGroup>

@@ -88,7 +88,7 @@ watch(
 </script>
 
 <template>
-	<div id="map" class="h-screen"></div>
+	<div id="map" class="h-full md:h-screen"></div>
 </template>
 
 <style lang="scss" scoped></style>

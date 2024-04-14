@@ -12,14 +12,15 @@ import CardDescription from "@/components/ui/card/CardDescription.vue";
 import CardContent from "@/components/ui/card/CardContent.vue";
 import {SunIcon, ResetIcon} from '@radix-icons/vue'
 import {useAppStore} from "@/store/index.js";
+import dayjs from "dayjs";
 
 
 const appStore = useAppStore();
 const { mapData , setMapData, originPoint, destinationPoint } = appStore;
 
 const timezoneOptions = ref([
-	{ label: "Europe/London (GMT)", value: "Europe/London" },
-	{ label: "Asia/Kolkata (GMT+5:30)", value: "Asia/Kolkata" }
+	{ label: "Europe/London", value: "Europe/London" },
+	{ label: "Asia/Kolkata", value: "Asia/Kolkata" }
 ]);
 
 const origin = ref(null);
@@ -28,6 +29,11 @@ const time = ref('');
 const exposureData = ref(null);
 const journeyData = ref(null);
 const timezone = ref(null);
+
+time.value = dayjs().format('YYYY-MM-DD HH:mm');
+
+const systemTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone
+timezone.value = timezoneOptions.value.find(tz => tz.value === systemTimeZone);
 
 
 const handleOriginSelect = (val)=>{
@@ -98,18 +104,20 @@ const isBusy = computed(()=>{
 			<AddressSearch @selected="handleDestinationSelect"></AddressSearch>
 		</div>
 
-		<div class="flex flex-col md:flex-row gap-x-4">
+		<div class="flex flex-col md:flex-row gap-x-4 gap-y-4">
 			<div class="flex flex-col gap-y-1">
 				<Label class="font-medium">Time</Label>
 				<Input v-model="time" :defaultValue="time" type="datetime-local" class="h-12 font-medium" placeholder="Time"></Input>
 			</div>
+
+
 			<div class="flex flex-col gap-y-1 w-full">
 				<Label class="font-medium">Timezone</Label>
-				<Combobox :options="timezoneOptions" @selected="handleTimezoneSelect"></Combobox>
+				<Combobox :options="timezoneOptions" :value="timezone" @selected="handleTimezoneSelect"></Combobox>
 			</div>
 		</div>
 
-		<div class="flex gap-x-2 mt-4 w-full justify-between">
+		<div class="flex flex-col md:flex-row gap-y-2 gap-x-2 mt-4 w-full md:justify-between">
 			<Button @click="calculateExposure" :disabled="isBusy" class="flex gap-x-2">
 				<SunIcon/>
 				<div>Calculate</div>
@@ -136,7 +144,7 @@ const isBusy = computed(()=>{
 				</div>
 			</div>
 
-			<div class="grid grid-cols-3 gap-2 mt-4" v-if="exposureData">
+			<div class="grid md:grid-cols-3 gap-2 mt-4" v-if="exposureData">
 				<Card v-if="exposureData['2']">
 					<CardHeader>
 						<CardTitle>Left Side</CardTitle>
