@@ -93,7 +93,6 @@ const isBusy = computed(()=>{
 			<div class="text-gray-500 text-base">Find the most optimal seat on your journey and avoid the sun</div>
 		</div>
 
-
 		<div class="flex flex-col gap-y-1">
 			<Label class="font-medium">Origin</Label>
 			<AddressSearch @selected="handleOriginSelect"></AddressSearch>
@@ -176,5 +175,6 @@ const isBusy = computed(()=>{
 				</Card>
 			</div>
 		</div>
+
 	</div>
 </template>
