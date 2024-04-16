@@ -41,7 +41,7 @@ const toggleDrawer = (val)=>{
 		</div>
 
 		<Drawer v-model:open="open" @open="toggleDrawer">
-			<DrawerContent class="md:h-1/2 focus:outline-none">
+			<DrawerContent class="md:h-3/4 focus:outline-none">
 				<DrawerHeader>
 					<DrawerTitle class="text-center">How does it work?</DrawerTitle>
 					<DrawerDescription>
