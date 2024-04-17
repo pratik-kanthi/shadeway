@@ -1,11 +1,16 @@
 <script setup>
 import maplibregl from 'maplibre-gl';
-import { onMounted, ref, watch } from "vue";
-import { useAppStore } from "@/store/index.js";
-import { storeToRefs } from "pinia";
+import {onMounted, ref, watch} from "vue";
+import {useAppStore} from "@/store/index.js";
+import {storeToRefs} from "pinia";
 import polyline from "@mapbox/polyline";
+import destinationIcon from "@/assets/destination.svg";
+import originIcon from "@/assets/origin.svg";
+
+console.log(destinationIcon);
+
 const appStore = useAppStore();
-const { mapData, exposureColors, originPoint, destinationPoint } = storeToRefs(appStore);
+const {mapData, exposureColors, originPoint, destinationPoint} = storeToRefs(appStore);
 let map = null;
 
 onMounted(() => {
@@ -16,6 +21,69 @@ onMounted(() => {
 		zoom: 9 // starting zoom
 	});
 });
+
+const originMarker = ref(null);
+const destinationMarker = ref(null);
+
+watch(
+		() => originPoint.value,
+		(newValue) => {
+
+			if (originMarker.value) {
+				originMarker.value.remove();
+			}
+			if (!newValue) {
+				return;
+			}
+
+
+			const el = document.createElement('div');
+			el.className = 'map-marker';
+			el.style.backgroundImage = `url('${originIcon}')`;
+			el.style.backgroundSize = 'contain';
+			el.style.backgroundRepeat = 'no-repeat';
+			el.style.width = '48px';
+			el.style.height = '48px';
+
+
+			originMarker.value = new maplibregl.Marker({
+				offset: [0, -24],
+				element: el,
+			})
+					.setLngLat([newValue.longitude, newValue.latitude])
+					.addTo(map);
+
+		}
+);
+
+watch(
+		() => destinationPoint.value,
+		(newValue) => {
+			if (destinationMarker.value) {
+				destinationMarker.value.remove();
+			}
+			if (!newValue) {
+				return;
+			}
+
+			const el = document.createElement('div');
+			el.className = 'map-marker';
+			el.style.backgroundImage = `url('${destinationIcon}')`;
+			el.style.backgroundSize = 'contain';
+			el.style.backgroundRepeat = 'no-repeat';
+			el.style.width = '48px';
+			el.style.height = '48px';
+
+
+			destinationMarker.value = new maplibregl.Marker({
+				offset: [0, -24],
+				element: el,
+			})
+					.setLngLat([newValue.longitude, newValue.latitude])
+					.addTo(map);
+		}
+);
+
 
 watch(
 		() => mapData.value?.segments,
@@ -71,8 +139,7 @@ watch(
 					},
 					paint: {
 						'line-color': color,
-						'line-width': 6,
-						'line-blur': 2
+						'line-width': 4,
 					}
 				});
 			});
@@ -83,7 +150,7 @@ watch(
 				duration: 0
 			});
 		},
-		{ deep: true }
+		{deep: true}
 );
 </script>
 

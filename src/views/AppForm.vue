@@ -16,7 +16,7 @@ import dayjs from "dayjs";
 
 
 const appStore = useAppStore();
-const { mapData , setMapData, originPoint, destinationPoint } = appStore;
+const { mapData , setMapData, setPoints } = appStore;
 
 const timezoneOptions = ref([
 	{ label: "Europe/London", value: "Europe/London" },
@@ -64,8 +64,8 @@ const calculateExposure = async (val)=>{
 	journeyData.value = result.data;
 
 	setMapData(result.data);
-	originPoint.value = origin.value;
-	destinationPoint.value = destination.value;
+	setPoints(origin.value, destination.value);
+
 }
 
 

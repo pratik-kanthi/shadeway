@@ -16,7 +16,6 @@ import {ref} from "vue";
 
 const open = ref(false);
 const toggleDrawer = (val)=>{
-	console.log(val);
 	open.value = val;
 }
 </script>

@@ -7,6 +7,11 @@ export const useAppStore = defineStore('appStore', ()=>{
 		mapData.value = data;
 	};
 
+	const setPoints = (origin, destination)=>{
+		originPoint.value = origin;
+		destinationPoint.value = destination;
+	};
+
 	const originPoint = ref(null);
 	const destinationPoint = ref(null);
 
@@ -19,6 +24,7 @@ export const useAppStore = defineStore('appStore', ()=>{
 	return {
 		mapData,
 		setMapData,
+		setPoints,
 		exposureColors,
 		originPoint,
 		destinationPoint
