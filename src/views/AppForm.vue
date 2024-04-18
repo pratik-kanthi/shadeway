@@ -68,7 +68,6 @@ const calculateExposure = async (val)=>{
 
 }
 
-
 const resetForm = ()=>{
 	origin.value = null;
 	destination.value = null;
@@ -106,7 +105,7 @@ const isBusy = computed(()=>{
 		<div class="flex flex-col md:flex-row gap-x-4 gap-y-4">
 			<div class="flex flex-col gap-y-1">
 				<Label class="font-medium">Time</Label>
-				<Input v-model="time" :defaultValue="time" type="datetime-local" class="h-12 font-medium" placeholder="Time"></Input>
+				<Input v-model="time" :defaultValue="time" type="datetime-local" class="h-12 font-medium " placeholder="Time"></Input>
 			</div>
 
 
@@ -130,7 +129,7 @@ const isBusy = computed(()=>{
 		<div class="flex flex-col gap-y-2">
 
 			<div class="mt-4 py-4 bg-zinc-100 rounded-md px-6" v-if="journeyData">
-				<div class="flex gap-x-8 justify-between">
+				<div class="flex flex-col md:flex-row gap-x-8 gap-y-4 justify-between">
 					<div>
 						<div class="font-semibold">Duration</div>
 						<div class="text-2xl font-semibold">{{ journeyData.duration.text }}</div>
@@ -138,7 +137,7 @@ const isBusy = computed(()=>{
 
 					<div>
 						<div class="font-semibold">Distance</div>
-						<div class="text-2xl font-semibold">{{ journeyData.distance.text }}</div>
+						<div class="text-2xl font-semibold">{{ parseInt(journeyData.distance.value/1000) }} km / {{ parseInt(journeyData.distance.value/1609)  }} mi</div>
 					</div>
 				</div>
 			</div>

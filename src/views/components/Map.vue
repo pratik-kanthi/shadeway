@@ -4,10 +4,10 @@ import {onMounted, ref, watch} from "vue";
 import {useAppStore} from "@/store/index.js";
 import {storeToRefs} from "pinia";
 import polyline from "@mapbox/polyline";
-import destinationIcon from "@/assets/destination.svg";
-import originIcon from "@/assets/origin.svg";
 
-console.log(destinationIcon);
+const destinationIcon = new URL('@/assets/destination.svg', import.meta.url).href;
+const originIcon = new URL('@/assets/origin.svg', import.meta.url).href;
+
 
 const appStore = useAppStore();
 const {mapData, exposureColors, originPoint, destinationPoint} = storeToRefs(appStore);
@@ -155,7 +155,7 @@ watch(
 </script>
 
 <template>
-	<div id="map" class="h-full md:h-screen"></div>
+	<div id="map" class="h-full md:h-screen rounded-md md:rounded-none"></div>
 </template>
 
 <style lang="scss" scoped></style>
