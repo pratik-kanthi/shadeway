@@ -70,7 +70,7 @@ const debouncedHandleChange = useDebounceFn(handleChange, 200);
 								:value="address"
 								@select="handleSelect"
 						>
-							<div><img class="w-4 h-4" src="@/assets/google-map-icon.svg"></div>
+							<div><img class="w-4 h-4" src="@/assets/google-map-icon.svg?url"></div>
 							<div>{{ address.label }}</div>
 							<CheckIcon :class="cn('ml-auto h-4 w-4', selected.id === address.id ? 'opacity-100' : 'opacity-0')"/>
 						</CommandItem>

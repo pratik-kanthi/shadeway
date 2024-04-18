@@ -5,8 +5,8 @@ import {useAppStore} from "@/store/index.js";
 import {storeToRefs} from "pinia";
 import polyline from "@mapbox/polyline";
 
-const destinationIcon = new URL('@/assets/destination.svg', import.meta.url).href;
-const originIcon = new URL('@/assets/origin.svg', import.meta.url).href;
+import destinationIcon from '@/assets/destination.png';
+import originIcon from '@/assets/origin.png';
 
 
 const appStore = useAppStore();
